@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="jquery-3.3.1.min.js">
+    </script>
+    <meta charset="UTF-8">
+    <title>chatroom</title>
+    <script type="text/javascript">
+        function send(text) {
+            var content = document.getElementById("content");
+            content.value = content.value + "【我:】\n" + text + "\n";
+            var response = $.ajax({url: "/chat?content=" + text, async: false}).responseText;
+            response = JSON.parse(response);
+            content.value = content.value + "【Tuling:】\n" + response.text + "\n";
+        }
+    </script>
+</head>
+<body align="center" bgcolor="#ffb6c1">
+    <h1 align="">图灵机器人</h1>
+    <h2>聊天窗口：</h2>
+    <textarea id="content" style="width: 450px; height: 350px; disables:disabled ;" readonly="readonly"></textarea>
+    <form onsubmit="return false;">
+        <input type="text" name="message">
+        <input type="button" value="发送" onclick="send(this.form.message.value)">
+    </form>
+</body>
+</html>
